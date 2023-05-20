@@ -1,9 +1,18 @@
-import { Body, Controller, Get, Query, Post, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Query,
+  Post,
+  Param,
+  Res,
+  Session,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-@Controller('user')
+@Controller('/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -16,9 +25,18 @@ export class UserController {
     };
   }
 
+  @Get('code')
+  createCaptcha(@Res() res, @Session() session) {
+    const captcha = this.userService.createCaptcha();
+    console.log('我的', session);
+    session.code = captcha.text;
+    res.type('image/svg+xml');
+    res.send(captcha.data);
+  }
+
   @Post('/register')
-  create(@Body() body) {
-    console.log(body);
+  create(@Body() body, @Session() session) {
+    console.log(body, session);
     return {
       code: 1,
     };
