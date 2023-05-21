@@ -10,7 +10,7 @@ async function bootstrap() {
       rolling: true,
       name: 'offertimeline.sid',
       cookie: {
-        maxAge: -1,
+        maxAge: 999999999,
       },
     }),
   );

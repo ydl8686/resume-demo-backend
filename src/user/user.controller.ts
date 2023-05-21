@@ -37,8 +37,15 @@ export class UserController {
   @Post('/register')
   create(@Body() body, @Session() session) {
     console.log(body, session);
+    if (body.captcha.toLowerCase() !== session.code.toLowerCase()) {
+      return {
+        code: 0,
+        message: '验证码错误',
+      };
+    }
     return {
       code: 1,
+      message: '注册成功，返回登录',
     };
   }
 

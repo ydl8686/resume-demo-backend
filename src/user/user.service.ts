@@ -21,7 +21,7 @@ export class UserService {
       size: 4,
       fontSize: 50,
       width: 100,
-      height: 34,
+      height: 32,
       background: '#cc9966',
     });
     return Captcha;
